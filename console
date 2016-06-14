@@ -7,6 +7,9 @@ use CyberSpectrum\Command\BuildCommand;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+	if (!(error_reporting() & $errno)) {
+		return;
+	}
 	throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
 }
 set_error_handler("exception_error_handler", E_ALL ^ E_NOTICE ^ E_USER_NOTICE);
